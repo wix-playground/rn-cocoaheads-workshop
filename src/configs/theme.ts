@@ -1,4 +1,4 @@
-import {ThemeManager} from 'react-native-ui-lib';
+import {ThemeManager} from 'react-native-ui-lib'
 
 export const lightModeTheme = {
   backgroundColor: '#FFF',
@@ -13,19 +13,19 @@ export const darkModeTheme = {
 }
 
 interface DarkModeProps {
-  darkMode: boolean;
+  darkMode: boolean
 }
 
 ThemeManager.setComponentTheme('Text', (props: DarkModeProps) => ({
   color: props.darkMode ? darkModeTheme.textColor : lightModeTheme.textColor,
-}));
+}))
 ThemeManager.setComponentTheme('Button', (props: DarkModeProps) => ({
   backgroundColor: props.darkMode ? darkModeTheme.primaryColor : lightModeTheme.primaryColor,
-}));
+}))
 ThemeManager.setComponentTheme('Switch', (props: DarkModeProps) => ({
   onColor: props.darkMode ? darkModeTheme.primaryColor : lightModeTheme.primaryColor,
-}));
+}))
 ThemeManager.setComponentTheme('Slider', (props: DarkModeProps) => ({
   thumbTintColor: props.darkMode ? darkModeTheme.primaryColor : lightModeTheme.primaryColor,
   minimumTrackTintColor: props.darkMode ? darkModeTheme.primaryColor : lightModeTheme.primaryColor,
-}));
+}))

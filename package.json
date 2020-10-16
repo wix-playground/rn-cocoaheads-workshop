@@ -5,7 +5,10 @@
   "scripts": {
     "start": "react-native start",
     "start-ios": "react-native run-ios",
-    "pods": "cd ./ios && pod install"
+    "pods": "cd ./ios && pod install",
+    "prettier:base": "prettier --parser typescript --single-quote",
+    "prettier:check": "npm run prettier:base -- --list-different \"src/**/*.{ts,tsx}\"",
+    "prettier:write": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
     "@react-native-community/blur": "^3.4.1",
