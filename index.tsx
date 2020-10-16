@@ -1,6 +1,8 @@
 import {AppRegistry} from 'react-native'
 
-import SettingsScreen from './src/SettingsScreen'
+import WrappedStoreComponent from './src/WrappedStoreComponent';
+import SettingsScreen from './src/SettingsScreen';
+import {store} from './src/modules/store';
 
 // Module name
-AppRegistry.registerComponent('CocoaHeads', () => SettingsScreen)
+AppRegistry.registerComponent('CocoaHeads', WrappedStoreComponent(store, () => SettingsScreen))
