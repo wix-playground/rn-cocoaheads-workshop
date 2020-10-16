@@ -1,16 +1,25 @@
 import React from 'react'
 import {ScrollView, StatusBar, StyleSheet, NativeModules} from 'react-native'
+import {connect} from 'react-redux'
 import {LoaderScreen, View, Image, Text, Button, Slider, Switch} from 'react-native-ui-lib'
 import {Settings, SettingsService} from './services/settings'
 import {lightModeTheme, darkModeTheme} from './configs/theme'
 import Assets from './assets'
+import {State as StoreState} from './modules/store'
 
-interface Props {}
+type Dispatch = (action: object) => void
+
+interface Props {
+  fontSize: number
+  darkMode: boolean
+  actions: {
+    setDarkMode: (darkMode: boolean) => void
+    setFontSize: (fontSize: number) => void
+  }
+}
 
 interface State {
   isLoading: boolean
-  fontSize: number
-  darkMode: boolean
 }
 
 class SettingsScreen extends React.Component<Props, State> {
@@ -26,7 +35,6 @@ class SettingsScreen extends React.Component<Props, State> {
 
     this.state = {
       isLoading: false,
-      ...this.defaultSettings,
     }
 
     this.settingsService = new SettingsService()
@@ -53,22 +61,25 @@ class SettingsScreen extends React.Component<Props, State> {
   }
 
   onApplySettingsPress = () => {
-    const {fontSize, darkMode} = this.state
+    const {fontSize, darkMode} = this.props
     NativeModules.SettingsNativeManager.setSettings({font_size: fontSize, dark_mode: darkMode})
   }
 
   onFontSizeChange = (fontSize: number) => {
-    this.setState({fontSize})
+    if (Math.round(fontSize) !== this.props.fontSize) {
+      this.props.actions.setFontSize(Math.round(fontSize))
+    }
   }
 
   onDarkModeChange = (darkMode: boolean) => {
-    this.setState({darkMode})
+    this.props.actions.setDarkMode(darkMode)
 
     StatusBar.setBarStyle(darkMode ? 'light-content' : 'dark-content')
   }
 
   render() {
-    const {isLoading, fontSize, darkMode} = this.state
+    const {isLoading} = this.state
+    const {fontSize, darkMode} = this.props
     const isApplyDisabled = fontSize === 0
 
     return (
@@ -185,4 +196,21 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SettingsScreen
+function mapStateToProps(state: StoreState) {
+  const {darkMode, fontSize} = state.settings
+  return {
+    darkMode,
+    fontSize,
+  }
+}
+
+function mapDispatchToProps(dispatch: Dispatch) {
+  return {
+    actions: {
+      setDarkMode: (darkMode: boolean) => dispatch({type: 'SET_DARK_MODE', darkMode}),
+      setFontSize: (fontSize: number) => dispatch({type: 'SET_FONT_SIZE', fontSize}),
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen)
