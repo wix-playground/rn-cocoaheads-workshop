@@ -1,1 +1,1 @@
-# rn-cocoaheads-workshop
+# React Native Workshop

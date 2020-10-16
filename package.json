@@ -1,0 +1,26 @@
+{
+  "name": "MyReactNativeApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "start-ios": "react-native run-ios",
+    "pods": "cd ./ios && pod install"
+  },
+  "dependencies": {
+    "@react-native-community/blur": "^3.4.1",
+    "@react-native-community/datetimepicker": "^2.2.3",
+    "@react-native-community/netinfo": "^5.9.2",
+    "@react-native-community/picker": "^1.7.1",
+    "react": "^16.9.0",
+    "react-native": "^0.63.3",
+    "react-native-gesture-handler": "^1.6.0",
+    "react-native-reanimated": "^1.7.0",
+    "react-native-ui-lib": "^5.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.23",
+    "@types/react-native": "^0.61.20",
+    "prettier": "^1.19.1"
+  }
+}
